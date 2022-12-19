@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import "./App.css";
+import Header from "./components/Header";
+import AddShop from "./components/AddShop";
+import ViewShop from "./components/ViewShop";
+interface AppContextInterface {
+  shopName: string;
+  area: string;
+  category: string;
+  oDate: string;
+  cDate: string;
+}
+
+const sampleAppContext: AppContextInterface[] = [
+  {
+    shopName: "Thakur",
+    area: "thehappybug",
+    category: "sjksl",
+    oDate: "12-12-2022",
+    cDate: "16-12-2022",
+  },
+];
+export const AppContext = React.createContext<AppContextInterface[]>([]);
 function App() {
+  const [shops, setShops] = React.useState(sampleAppContext);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppContext.Provider value={shops}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Header />}>
+              <Route index element={<ViewShop />} />
+              <Route path="addshop" element={<AddShop fun={setShops} />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AppContext.Provider>
     </div>
   );
 }
