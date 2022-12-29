@@ -1,9 +1,9 @@
 import React from "react";
-import uuid from "react-uuid";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { addShop, removeShop } from "../features/todoSlice";
+import { editShop } from "../features/todoSlice";
 import Modal from "react-modal";
+import uuid from "react-uuid";
 const customStyles = {
   content: {
     top: "50%",
@@ -18,16 +18,15 @@ const customStyles = {
 //   fun: Dispatch<SetStateAction<AppContextInterface[]>>;
 // }
 export interface AppContextInterface {
-  toEditShopName?: string;
   shopName: string;
   area: string;
   category: string;
   oDate: string;
   cDate: string;
-  uuid: string;
 }
 
-export default function AddShop() {
+export default function EditShop(props: any) {
+  const name = props.value.nam;
   const dispatch = useDispatch();
 
   const todos = useSelector((state: any) => state.todok);
@@ -48,15 +47,16 @@ export default function AddShop() {
   }
 
   function closeModal() {
+    props.closeModal();
     setIsOpen(false);
   }
   const [formState, setFormState] = React.useState({
-    area: "",
-    category: "",
+    area: props.value.area,
+    category: props.value.category,
   });
-  const [shopName, setShopName] = React.useState("");
-  const [oDate, setODate] = React.useState("");
-  const [cDate, setCDate] = React.useState("");
+  const [shopName, setShopName] = React.useState(props.value.nam);
+  const [oDate, setODate] = React.useState(props.value.oDate);
+  const [cDate, setCDate] = React.useState(props.value.cDate);
 
   const changeHandler = (
     e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
@@ -83,12 +83,13 @@ export default function AddShop() {
     } else {
       setModalTextAColor({
         ...modalTextAColor,
-        text: "Shop has been added successfully!",
+        text: "Shop has been edited successfully!",
         color: "green",
       });
       openModal();
       dispatch(
-        addShop({
+        editShop({
+          toEditShopName: name,
           shopName,
           area: areaK,
           category: cato,
@@ -97,10 +98,6 @@ export default function AddShop() {
           uuid: uuid(),
         })
       );
-      setShopName("");
-      setODate("");
-      setCDate("");
-      setFormState({ area: "", category: "" });
     }
     // props.fun((prev) => [
     //   ...prev,
@@ -120,7 +117,7 @@ export default function AddShop() {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>
-        <u>Add Shops</u>
+        <u>Edit Shops</u>
       </h1>
       <form style={{ width: "500px", margin: "auto" }}>
         <div className="form-group" style={{ marginBottom: "25px" }}>

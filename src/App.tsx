@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import AddShop from "./components/AddShop";
 import ViewShop from "./components/ViewShop";
+import { type } from "os";
 interface AppContextInterface {
   shopName: string;
   area: string;
@@ -22,21 +23,25 @@ const sampleAppContext: AppContextInterface[] = [
     cDate: "16-12-2022",
   },
 ];
+interface PropType {
+  increment: (value: AppContextInterface) => {
+    type: string;
+    payload: AppContextInterface;
+  };
+}
 export const AppContext = React.createContext<AppContextInterface[]>([]);
 function App() {
-  const [shops, setShops] = React.useState(sampleAppContext);
   return (
     <div className="App">
-      <AppContext.Provider value={shops}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Header />}>
-              <Route index element={<ViewShop />} />
-              <Route path="addshop" element={<AddShop fun={setShops} />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AppContext.Provider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route index element={<ViewShop />} />
+            <Route path="/addshop" element={<AddShop />} />
+            <Route path="/viewshop" element={<ViewShop />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

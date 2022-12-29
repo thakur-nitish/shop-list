@@ -24,7 +24,7 @@ export default function Header() {
             style={{ marginRight: "15px" }}
           >
             <Link
-              to="addshop"
+              to="/addshop"
               style={{ textDecoration: "none", color: "white" }}
             >
               Add Shop
@@ -35,7 +35,10 @@ export default function Header() {
             type="submit"
             style={{ marginRight: "15px" }}
           >
-            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <Link
+              to="/viewshop"
+              style={{ textDecoration: "none", color: "white" }}
+            >
               View Shop
             </Link>
           </button>
