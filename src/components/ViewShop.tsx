@@ -151,12 +151,15 @@ export default function ViewShop() {
         {todos.length === 0 ? (
           ""
         ) : (
-          <Select
-            placeholder="Filter"
-            value={selectedOption2}
-            onChange={handleChangeSelect}
-            options={options1}
-          />
+          <div style={{ width: "55%" }}>
+            {" "}
+            <Select
+              placeholder="Filter"
+              value={selectedOption2}
+              onChange={handleChangeSelect}
+              options={options1}
+            />
+          </div>
         )}{" "}
         {selectedOption2 === null ? (
           ""
