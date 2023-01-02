@@ -22,6 +22,7 @@ export default function Header() {
             className="btn btn-primary my-2 my-sm-0 mt-2"
             type="submit"
             style={{ marginRight: "15px" }}
+            onClick={(e) => e.preventDefault()}
           >
             <Link
               to="/addshop"
@@ -34,6 +35,7 @@ export default function Header() {
             className="btn btn-primary my-2 my-sm-0"
             type="submit"
             style={{ marginRight: "15px" }}
+            onClick={(e) => e.preventDefault()}
           >
             <Link
               to="/viewshop"
