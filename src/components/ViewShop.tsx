@@ -13,17 +13,17 @@ const options1 = [
     options: [
       {
         label: "Butcher",
-        value: "Butcher",
+        value: "Category",
         color: "red",
       },
       {
         label: "Grocery",
-        value: "Grocery",
+        value: "Category",
         color: "blue",
       },
       {
         label: "Chemist",
-        value: "Chemist",
+        value: "Category",
         color: "green",
       },
     ],
@@ -33,17 +33,17 @@ const options1 = [
     options: [
       {
         label: "Thane",
-        value: "Thane",
+        value: "Area",
         color: "brown",
       },
       {
         label: "Pune",
-        value: "Pune",
+        value: "Area",
         color: "orange",
       },
       {
-        label: "Mumbai",
-        value: "Mumbai",
+        label: "Mumbai Suburban",
+        value: "Area",
         color: "purple",
       },
     ],
@@ -106,18 +106,29 @@ export default function ViewShop() {
   }
   function filterData(arr: any, toFilter: any) {
     let newArr = [];
+    console.log(toFilter);
+    if (toFilter.value === "Area") {
+      newArr = arr.filter((value: any) => {
+        return value.area === toFilter.label;
+      });
+    } else {
+      newArr = arr.filter((value: any) => {
+        return value.category === toFilter.label;
+      });
+    }
 
-    newArr = arr.filter((value: any) => {
-      return value.area === toFilter;
-    });
     setFilteredData(newArr);
+  }
+  function undo() {
+    setFilteredData(todos);
+    setSelectedOption2(null);
   }
 
   const [selectedOption2, setSelectedOption2] = React.useState(null);
   const [filteredData, setFilteredData] = React.useState(todos);
   const handleChangeSelect = (selectedOption2: any) => {
     setSelectedOption2(selectedOption2);
-    filterData(todos, selectedOption2.value);
+    filterData(todos, selectedOption2);
   };
   React.useEffect(() => {
     setFilteredData(todos);
@@ -131,9 +142,10 @@ export default function ViewShop() {
       </h1>
       <div
         style={{
-          width: "15%",
+          width: "30%",
           marginBottom: "60px",
           marginLeft: "60px",
+          display: "flex",
         }}
       >
         {todos.length === 0 ? (
@@ -145,6 +157,20 @@ export default function ViewShop() {
             onChange={handleChangeSelect}
             options={options1}
           />
+        )}{" "}
+        {selectedOption2 === null ? (
+          ""
+        ) : (
+          <button
+            className="btn btn-primary"
+            style={{
+              float: "right",
+              marginLeft: "20px",
+            }}
+            onClick={undo}
+          >
+            X
+          </button>
         )}
       </div>
 
@@ -162,11 +188,6 @@ export default function ViewShop() {
                 marginBottom: "60px",
               }}
             >
-              <img
-                className="card-img-top"
-                src="www.google.com"
-                alt="Card  cap"
-              />
               <div className="card-body">
                 <h5 className="card-title">Shop Name: {data.shopName}</h5>
                 <p className="card-text">Area : {data.area}</p>
