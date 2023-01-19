@@ -1,9 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { screen, render as rtlRender } from "@testing-library/react";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import { Provider } from "react-redux";
+import App from "./App";
+import store from "./app/store";
+const render = (component: any) =>
+  rtlRender(<Provider store={store}>{component}</Provider>);
+
+describe("App.tsx tests", () => {
+  test("app.tsx renders correctly", () => {
+    render(<App />);
+    expect(screen.getByTestId("app")).toBeInTheDocument();
+  });
 });

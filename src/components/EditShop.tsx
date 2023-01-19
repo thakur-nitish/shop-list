@@ -26,7 +26,7 @@ export interface AppContextInterface {
 }
 
 export default function EditShop(props: any) {
-  const name = props.value.nam;
+  const name: string = props.value.nam;
   const dispatch = useDispatch();
 
   const todos = useSelector((state: any) => state.todok);
@@ -136,6 +136,7 @@ export default function EditShop(props: any) {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Area</label>
           <select
+            data-testid="select-area"
             className="form-select"
             aria-label=".form-select-sm example"
             required
@@ -152,6 +153,7 @@ export default function EditShop(props: any) {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Category</label>
           <select
+            data-testid="select-category"
             className="form-select"
             aria-label=".form-select-sm example"
             required
@@ -168,9 +170,10 @@ export default function EditShop(props: any) {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Opening Date</label>
           <input
+            data-testid="opening-date"
             type="date"
             className="form-control"
-            id="exampleInputPassword1"
+            id="exampleIsrc/test/EditShop.test.tsxnputPassword1"
             placeholder="Opening date"
             required
             value={oDate}
@@ -180,6 +183,7 @@ export default function EditShop(props: any) {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Closing Date</label>
           <input
+            data-testid="closing-date"
             type="date"
             className="form-control"
             id="exampleInputPassword1"
@@ -193,6 +197,7 @@ export default function EditShop(props: any) {
           />
         </div>
         <button
+          data-testid="submit-button"
           type="submit"
           className="btn btn-primary"
           style={{ width: "100%" }}
@@ -210,6 +215,7 @@ export default function EditShop(props: any) {
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
+          ariaHideApp={false}
           style={customStyles}
           contentLabel="Example Modal"
         >

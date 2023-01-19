@@ -1,9 +1,6 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 export default function Header() {
-  const popup = () => {
-    alert("Hello baby!");
-  };
   return (
     <>
       <nav
@@ -14,11 +11,13 @@ export default function Header() {
           marginBottom: "30px",
         }}
       >
-        <a className="navbar-brand" href="#" style={{ color: "white" }}>
+        <p className="navbar-brand" style={{ color: "white" }}>
           Google Shop
-        </a>
+        </p>
+
         <form className="form-inline">
           <button
+            data-testid="add-shop"
             className="btn btn-primary my-2 my-sm-0 mt-2"
             type="submit"
             style={{ marginRight: "15px" }}
@@ -32,6 +31,7 @@ export default function Header() {
             </Link>
           </button>
           <button
+            data-testid="view-shop"
             className="btn btn-primary my-2 my-sm-0"
             type="submit"
             style={{ marginRight: "15px" }}

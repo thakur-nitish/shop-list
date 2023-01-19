@@ -99,14 +99,12 @@ export default function ViewShop() {
     setIsOpen1(false);
   }
   function closeModalADelete() {
-    console.log(shopDetail.shopName);
-
     dispatch(removeShop(shopDetail.shopName));
     setIsOpen(false);
   }
   function filterData(arr: any, toFilter: any) {
     let newArr = [];
-    console.log(toFilter);
+
     if (toFilter.value === "Area") {
       newArr = arr.filter((value: any) => {
         return value.area === toFilter.label;
@@ -127,10 +125,14 @@ export default function ViewShop() {
   const [selectedOption2, setSelectedOption2] = React.useState(null);
   const [filteredData, setFilteredData] = React.useState(todos);
   const handleChangeSelect = (selectedOption2: any) => {
+    // console.log(selectedOption2);
+
     setSelectedOption2(selectedOption2);
     filterData(todos, selectedOption2);
   };
   React.useEffect(() => {
+    // console.log(selectedOption2);
+
     setFilteredData(todos);
     setSelectedOption2(null);
   }, [todos]);
@@ -151,9 +153,10 @@ export default function ViewShop() {
         {todos.length === 0 ? (
           ""
         ) : (
-          <div style={{ width: "55%" }}>
+          <div data-testid="filter" style={{ width: "55%" }}>
             {" "}
             <Select
+              data-testid="filter-select"
               placeholder="Filter"
               value={selectedOption2}
               onChange={handleChangeSelect}
@@ -165,6 +168,7 @@ export default function ViewShop() {
           ""
         ) : (
           <button
+            data-testid="undo"
             className="btn btn-primary"
             style={{
               float: "right",
@@ -178,7 +182,11 @@ export default function ViewShop() {
       </div>
 
       <div className="card-deck" style={{ width: "1200px", margin: "auto" }}>
-        {todos.length === 0 ? <h1>No item to display</h1> : ""}
+        {todos.length === 0 ? (
+          <h1 data-testid="noitem">No item to display</h1>
+        ) : (
+          ""
+        )}
         {filteredData.map((data: any) => {
           return (
             <div
@@ -201,6 +209,7 @@ export default function ViewShop() {
               <div className="card-footer">
                 <div style={{ marginLeft: "20%" }}>
                   <button
+                    data-testid="edit-button"
                     type="button"
                     onClick={() => {
                       setShopDetail(data);
@@ -211,6 +220,7 @@ export default function ViewShop() {
                     Edit
                   </button>
                   <button
+                    data-testid="delete-button"
                     type="button"
                     className="btn btn-danger"
                     onClick={() => {
@@ -227,11 +237,12 @@ export default function ViewShop() {
         })}
       </div>
       {/* starting code for Modal edit */}
-      <div>
+      <div data-testid="modal-div">
         <Modal
           isOpen={modalIsOpen1}
           onAfterOpen={afterOpenModal1}
           onRequestClose={closeModal1}
+          ariaHideApp={false}
           style={customStyles}
           contentLabel="Example Modal"
         >
@@ -252,17 +263,19 @@ export default function ViewShop() {
       </div>
       {/* Ending code for Modal edit */}
       {/* Modal code starts from here only. */}
-      <div>
+      <div data-testid="2nd-modal">
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
+          ariaHideApp={false}
           style={customStyles}
           contentLabel="Example Modal"
         >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
           <p>Are you sure want to delete the Shop?</p>
           <button
+            data-testid="close-popup"
             onClick={() => {
               setIsOpen(false);
             }}
@@ -271,6 +284,7 @@ export default function ViewShop() {
             close
           </button>
           <button
+            data-testid="close-popup-yes"
             onClick={() => {
               closeModalADelete();
             }}

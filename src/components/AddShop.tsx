@@ -139,6 +139,7 @@ export default function AddShop() {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Area</label>
           <select
+            data-testid="select-area"
             className="form-select"
             aria-label=".form-select-sm example"
             required
@@ -155,6 +156,7 @@ export default function AddShop() {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Category</label>
           <select
+            data-testid="select-category"
             className="form-select"
             aria-label=".form-select-sm example"
             required
@@ -171,6 +173,7 @@ export default function AddShop() {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Opening Date</label>
           <input
+            data-testid="opening-date"
             type="date"
             className="form-control"
             id="exampleInputPassword1"
@@ -183,6 +186,7 @@ export default function AddShop() {
         <div className="form-group" style={{ marginBottom: "25px" }}>
           <label htmlFor="exampleInputPassword1">Closing Date</label>
           <input
+            data-testid="closing-date"
             type="date"
             className="form-control"
             id="exampleInputPassword1"
@@ -213,6 +217,7 @@ export default function AddShop() {
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
+          ariaHideApp={false}
           style={customStyles}
           contentLabel="Example Modal"
         >
